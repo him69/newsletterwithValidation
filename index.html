@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0px;
+      box-sizing: border-box;
+      /*  */
+    }
+
+    body {
+      /* background-color: hsl(234, 29%, 20%); */
+      background-color: hsl(235, 18%, 26%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+      font-family: robotoRegular;
+    }
+
+    @font-face {
+      font-family: robotoBold;
+      src: url(./assets/fonts/Roboto-Bold.ttf);
+    }
+
+    @font-face {
+      font-family: robotoRegular;
+      src: url(./assets/fonts/Roboto-Regular.ttf);
+    }
+
+    .fontBold {
+      font-family: robotoBold;
+    }
+
+    .fsize {
+      font-size: 16px;
+    }
+
+    ul {
+      list-style-image: url(./assets/images/icon-list.svg);
+    }
+
+    .signUpBox {
+      height: 400px;
+      position: absolute;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      display: flex;
+      /* width: 55%; */
+    }
+
+    .imgBox {
+      height: 100%;
+      /* object-fit: contain; */
+    }
+
+    .imgBox img {
+      object-fit: contain;
+    }
+
+    input {
+      border: 1px solid black;
+      outline: none;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    button {
+      background: hsl(234, 29%, 20%);
+      border: 0;
+      outline: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .btnhover:hover {
+      background: linear-gradient(92deg, hsl(345.78deg 100% 66.08%), hsl(4.59deg 100% 66.67%));
+      box-shadow: 0px 19px 27px -16px hsl(4.59deg 65% 66.67%), -1px 23px 27px -9px hsl(345.78deg 75% 66.08%);
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+.thankBox{
+  width: min(400px,100%);
+  display: none;
+}
+    @media only screen and (max-width: 768px) {
+      .signUpBox {
+        height: auto;
+      }
+      .thankBox{
+        height: 100vh;
+      }
+      .thankText{
+        height: 50%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sign-up form start -->
+  <div class="bg-white p-0 p-md-3 signUpBox rounded-4 row flex-wrap-reverse " id="newsletterBox">
+    <div class="col-md-7 col-12" >
+      <h1 class="fontBold"> Stay updated!</h1>
+      <p class="fsize"> Join 60,000+ product managers receiving monthly updates on:</p>
+      <ul>
+        <li>
+          <p> Product discovery and building what matters</p>
+        </li>
+        <li>
+          <p> Measuring to ensure updates are a success</p>
+        </li>
+        <li>
+          <p>And much more!</p>
+        </li>
+      </ul>
+      <form action="" name="myForm" onsubmit="event.preventDefault(); validateEmail()">
+        <div class="d-flex justify-content-between">
+          <label for="" class="fw-bold">Email address</label>
+          <span id="alertMsg" class=" text-danger fw-bold"></span>
+        </div>
+        <input type="text" name="email" id="email" value="" placeholder="email@company.com" class="p-2 w-100 rounded-3">
+        <button type="submit" class="p-2 w-100 rounded-3 btnhover text-white mt-3">Subscribe to monthly
+          newsletter</button>
+      </form>
+    </div>
+    <div class="col-md-5 col-12 p-0 p-md-3 imgBox">
+      <div class="" style="height: inherit;">
+        <img src="./assets/images/illustration-sign-up-desktop.svg" alt="" class="w-100 h-100 d-md-block d-none">
+        <img src="./assets/images/illustration-sign-up-mobile.svg" alt="" class="w-100 h-100 d-md-none d-block">
+      </div>
+    </div>
+
+  </div>
+  <!-- Sign-up form end -->
+
+  <div class="bg-white p-3 rounded thankBox " id="thankMsgBox">
+    <img src="./assets/images/icon-success.svg" alt="">
+    <h1 class="fontBold fw-bold my-md-0 my-2">
+      Thanks for subscribing!
+    </h1>
+    <p class="thankText">
+      A confirmation email has been sent to <span class="fw-bold" id="userMail"></span>
+      Please open it and click the button inside to confirm your subscription.
+    </p>
+    <button onclick="location.href='index.html';"  class="p-3 w-100 rounded-3 btnhover text-white mt-3">Dismiss message</button>
+  </div>
+  <!-- Success message start -->
+
+  <!-- Thanks for subscribing!
+
+  
+
+  Dismiss message -->
+
+  <!-- Success message end -->
+
+  <script>
+    function isValidEmail(email) {
+      let pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      return pattern.test(email);
+    }
+
+    // function submitForm() {
+    //   console.log('Email is valid, form should submit now');
+      
+    //   document.forms['myForm'].submit();
+    //   console.log('Form submitted');
+    // }
+
+    function showError() {
+      let alertMsg = document.getElementById('alertMsg');
+      console.log('Email is not valid');
+      alertMsg.innerHTML = 'Valid email required';
+    }
+function thankBox(){
+let newsletterBox = document.getElementById('newsletterBox');
+let thankMsgBox = document.getElementById('thankMsgBox');
+let mail=document.getElementById('email').value;
+console.log(mail);
+let userMail = document.getElementById('userMail');
+newsletterBox.style.display='none'
+thankMsgBox.style.display='block'
+userMail.innerText=mail
+console.log('Email is valid, form should submit now');
+//  document.forms['myForm'].submit();
+console.log('thank for submit'+userMail);
+}
+    function validateEmail() {
+      event.preventDefault();
+
+      let emailCheck = document.getElementById('email').value;
+console.log(emailCheck)
+      if (emailCheck === "") {
+        alertMsg.innerHTML = 'Email cannot be empty';
+        return false;
+      }
+
+      if (isValidEmail(emailCheck)) {
+        thankBox();
+        
+      } else {
+        showError();
+        return false;
+      }
+    }
+
+  </script>
+  </div>
+</body>
+
+</html>
